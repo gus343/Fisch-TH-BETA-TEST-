@@ -1,0 +1,77 @@
+# Fisch-TH-BETA-TEST-
+local Kavo = require(game.ReplicatedStorage.KavoLibrary) -- Import Kavo UI Library
+local Theme = Kavo.UI.Theme.DarkTheme -- Choose the theme
+local Window = Kavo.UI.Window:New({
+    Title = "Auto Fishing",  -- Window title
+    Theme = Theme  -- Apply the selected theme
+})
+
+-- Create button for starting autoCast
+local castButton = Window:Button({
+    Text = "Start Auto Cast",  -- Button text
+    Callback = function()
+        spawn(autoCast)  -- Call autoCast function
+        castButton.Text = "Stop Auto Cast"  -- Change button text
+        castButton.Callback = function()  -- Change button behavior
+            castButton.Text = "Start Auto Cast"
+            -- Add functionality to stop autoCast here
+        end
+    end
+})
+
+-- Create button for starting autoReel
+local reelButton = Window:Button({
+    Text = "Start Auto Reel",  -- Button text
+    Callback = function()
+        spawn(autoReel)  -- Call autoReel function
+        reelButton.Text = "Stop Auto Reel"  -- Change button text
+        reelButton.Callback = function()  -- Change button behavior
+            reelButton.Text = "Start Auto Reel"
+            -- Add functionality to stop autoReel here
+        end
+    end
+})
+
+-- Create button for starting autoShake
+local shakeButton = Window:Button({
+    Text = "Start Auto Shake",  -- Button text
+    Callback = function()
+        spawn(autoShake)  -- Call autoShake function
+        shakeButton.Text = "Stop Auto Shake"  -- Change button text
+        shakeButton.Callback = function()  -- Change button behavior
+            shakeButton.Text = "Start Auto Shake"
+            -- Add functionality to stop autoShake here
+        end
+    end
+})
+
+-- Fishing functions
+function autoCast()
+    while true do
+        wait(0.1)
+        local args = {
+            [1] = "Cast"
+        }
+        game:GetService("ReplicatedStorage").Remotes.Fishing:FireServer(unpack(args))
+    end
+end
+
+function autoReel()
+    while true do
+        wait(0.1)
+        local args = {
+            [1] = "Reel"
+        }
+        game:GetService("ReplicatedStorage").Remotes.Fishing:FireServer(unpack(args))
+    end
+end
+
+function autoShake()
+    while true do
+        wait(0.1)
+        local args = {
+            [1] = "Shake"
+        }
+        game:GetService("ReplicatedStorage").Remotes.Fishing:FireServer(unpack(args))
+    end
+end
